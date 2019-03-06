@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  cifconvert:
+    build: .
+    volumes:
+      - 'cif2convert_data:/store'
+
+volumes:
+  cifconvert_data:
+    external: true
