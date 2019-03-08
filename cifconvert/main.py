@@ -41,8 +41,8 @@ def _pad_or_crop(image, _w, _h):
     mean = np.mean(sample)
 
     def normal(vector, pad_width, iaxis, kwargs):
-        vector[:pad_width[0]] = np.random.normal(mean, std, vector[:pad_width[0]].shape)
-        vector[-pad_width[1]:] = np.random.normal(mean, std, vector[-pad_width[1]:].shape)
+        vector[:pad_width[0]] = 0
+        vector[-pad_width[1]:] = 0
         return vector
 
     if (_h > image.shape[0]) and (_w > image.shape[1]):
