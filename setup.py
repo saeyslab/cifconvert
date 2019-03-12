@@ -29,7 +29,8 @@ setuptools.setup(
     ],
     entry_points={
         "console_scripts": [
-            "cifconvert=cifconvert.main:main"
+            "cifconvert=cifconvert.main:main",
+            "cifmerge=cifconvert.merge:main"
         ]
     }
 )

@@ -62,7 +62,7 @@ def _pad_or_crop(image, _w, _h):
                ]
 
 
-def _process_partial_cif(_id, _cif, _w, _h, _cpu_count, output, sample, _c=None):
+def _process_partial_cif(_id, _cif, _w, _h, _cpu_count, output, _c=None):
 
     logger = logging.getLogger(__name__)
 
@@ -84,13 +84,10 @@ def _process_partial_cif(_id, _cif, _w, _h, _cpu_count, output, sample, _c=None)
             crange = np.array(_c)-1
 
         with h5py.File(output, "a") as f:
-            if sample in f:
-                raise ValueError("Sample name already present in h5 file.")
-            sample = f.create_group(sample)
             images = []
             masks = []
             for c in crange:
-                channelgrp = sample.create_group("channel_%d" % (c+1))
+                channelgrp = f.create_group("channel_%d" % (c+1))
                 images.append(channelgrp.create_dataset("images", shape=(int(r_length/2), _w, _h), dtype="<u2"))
                 masks.append(channelgrp.create_dataset("masks", shape=(int(r_length/2), _w, _h), dtype="?"))
 
@@ -108,7 +105,7 @@ def _process_partial_cif(_id, _cif, _w, _h, _cpu_count, output, sample, _c=None)
         javabridge.kill_vm()
 
 
-def init(cif, output, sample, width, height, channels, debug):
+def init(cif, output, width, height, channels, debug):
 
     if debug:
         logging.basicConfig()
@@ -127,7 +124,7 @@ def init(cif, output, sample, width, height, channels, debug):
     _process_partial_cif(
             0, cif,
             width, height, cpu_count,
-            output, sample, _c=channels
+            output, _c=channels
     )
 
     # Parallel(n_jobs=cpu_count)(
@@ -148,10 +145,6 @@ def main():
     parser.add_argument(
         "output", type=str,
         help="Output filename for h5."
-    )
-    parser.add_argument(
-        "sample", type=str,
-        help="Name for sample."
     )
     parser.add_argument(
         "width", type=int,
