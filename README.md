@@ -1,3 +1,5 @@
+# This package has been deprecated. Please use [ifcimglib](https://github.ugent.be/mlippeve/ifcimglib)
+
 # cifconvert
 `cifconvert` is a package built on the [python-bioformats](https://github.com/CellProfiler/python-bioformats) package that saves images and masks from the proprietary Amnis CIF-file format to an HDF5 file.
 
