@@ -17,7 +17,7 @@ setuptools.setup(
     install_requires=[
         "javabridge==1.0.18",
         "python-bioformats==1.5.2",
-        "numpy==1.15.4",
+        "numpy==1.22.0",
         "joblib==0.13.0",
         "tqdm==4.28.1",
         "h5py==2.9.0"
